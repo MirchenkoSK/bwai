@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
+use App\Facades\ImageBuilder;
+use App\Facades\Seo;
 
 class PageController extends Controller
 {
@@ -26,7 +28,7 @@ class PageController extends Controller
     {
         $this->pages = Page::all();
         // dd($this->pages);
-        $this->template .= 'Page';
+        $this->template .= 'Pages/Index';
         return $this->fire();
     }
 
@@ -37,7 +39,10 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        $this->pages = Page::all();
+        $this->page = new Page();
+        $this->template .= 'Pages/Show';
+        return $this->fire();
     }
 
     /**
@@ -59,7 +64,15 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        //
+        if (!$page) {
+            return redirect()->route('dashboard.page.index')->with('message', 'Page not found.');
+        }
+        // dd(\App\Models\Image::all());
+        // dd($page->image->original);
+        $this->pages = Page::all();
+        $this->page = $page;
+        $this->template .= 'Pages/Show';
+        return $this->fire();
     }
 
     /**
@@ -82,7 +95,28 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        //
+        if (!$page) {
+            return redirect()->route('dashboard.page.index')->with('message', 'Page not found.');
+        }
+        $request->validate([
+            'name' => 'string|required',
+            'alias' => 'string|required',
+            'title' => 'string|required',
+            'subtitle' => 'string|nullable',
+            'text' => 'string|required',
+        ]);
+
+        $data = $request->all();
+        $data['status'] = isset($data['status']) ? 1 : 0;
+        $data['seo_id'] = Seo::fire($data['seo'], $page->seo_id);
+        
+        $page->fill($data);
+        if ($page->save()) {
+            if ($request->hasFile('image')) {
+                ImageBuilder::fire($request->image, 'page', $page->id, $page->name);
+            }
+            return redirect()->route('dashboard.page.show', $page->id)->with('message', 'Страница обновлена.');
+        }
     }
 
     /**

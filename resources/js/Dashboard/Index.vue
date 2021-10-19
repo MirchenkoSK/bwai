@@ -2,15 +2,12 @@
     <Head title="Dashboard Index" />
 
     <DashboardLayout>
-        <template #panel>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
-        </template>
+        
 
-        <div>
-            
-        </div>
+        <p class="text-groovbox-red-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, provident ex? Sapiente illum odit unde? Quibusdam, possimus. Magni obcaecati explicabo sapiente quo, aperiam, eaque vero, fuga hic atque facilis expedita.</p>
+        <p class="text-groovbox-red">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, provident ex? Sapiente illum odit unde? Quibusdam, possimus. Magni obcaecati explicabo sapiente quo, aperiam, eaque vero, fuga hic atque facilis expedita.</p>
+        <p class="text-groovbox-red-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, provident ex? Sapiente illum odit unde? Quibusdam, possimus. Magni obcaecati explicabo sapiente quo, aperiam, eaque vero, fuga hic atque facilis expedita.</p>
+        
     </DashboardLayout>
 
 </template>

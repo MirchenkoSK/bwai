@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Seo extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'st', 'sd', 'ogt', 'ogd', 'canonical'
+    ];
 }
