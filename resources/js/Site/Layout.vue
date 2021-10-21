@@ -15,6 +15,14 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <BreezeNavLink v-if="$page.props.auth.user" :href="route('client.index')" :active="route().current('client.index')">
+                                    Client
+                                </BreezeNavLink>
+
+                                <BreezeNavLink v-if="$page.props.auth.user" :href="route('manager.index')" :active="route().current('manager.index')">
+                                    Manager
+                                </BreezeNavLink>
+
                                 <BreezeNavLink v-if="$page.props.auth.user" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                                     Dashboard
                                 </BreezeNavLink>
