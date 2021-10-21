@@ -12,13 +12,16 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $this->canLogin = Route::has('login');
-        $this->canRegister = Route::has('register');
-        $this->laravelVersion = Application::VERSION;
-        $this->phpVersion = PHP_VERSION;
         $this->pages = Page::all();
-
         $this->template .= 'Index';
+        return $this->fire();
+    }
+
+    public function page($alias)
+    {
+        $this->pages = Page::all();
+        $this->page = Page::where('alias', $alias)->first();
+        $this->template .= 'Page';
         return $this->fire();
     }
 }

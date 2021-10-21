@@ -37,12 +37,12 @@
 </template>
 
 <script>
-import BreezeButton from '@/Components/Button.vue'
-import BreezeGuestLayout from '@/Layouts/Auth.vue'
-import BreezeInput from '@/Components/Input.vue'
-import BreezeLabel from '@/Components/Label.vue'
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import BreezeButton from '@/Auth/Components/Button.vue'
+import BreezeGuestLayout from '@/Auth/Layout.vue'
+import BreezeInput from '@/Auth/Components/Input.vue'
+import BreezeLabel from '@/Auth/Components/Label.vue'
+import BreezeValidationErrors from '@/Auth/Components/ValidationErrors.vue'
+import { Head, Link } from '@inertiajs/inertia-vue3'
 
 export default {
     layout: BreezeGuestLayout,

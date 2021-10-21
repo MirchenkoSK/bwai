@@ -41,7 +41,7 @@ class PageController extends Controller
     {
         $this->pages = Page::all();
         $this->page = new Page();
-        $this->template .= 'Pages/Show';
+        $this->template .= 'Pages/Create';
         return $this->fire();
     }
 
@@ -53,7 +53,30 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'string|required',
+            'alias' => 'string|required',
+            'title' => 'string|required',
+            'subtitle' => 'string|nullable',
+            'text' => 'string|required',
+            'status' => 'boolean',
+            'st' => 'string|nullable',
+            'sd' => 'string|nullable',
+            'ogt' => 'string|nullable',
+            'ogd' => 'string|nullable',
+        ]);
+
+        $data = $request->all();
+        $data['seo_id'] = Seo::fire($data['seo']);
+        
+        $page = new Page();
+        $page->fill($data);
+        if ($page->save()) {
+            if ($request->hasFile('image')) {
+                ImageBuilder::fire($request->image, 'page', $page->id, $page->name);
+            }
+            return redirect()->route('dashboard.page.show', $page->id)->with('message', 'Страница добавлена');
+        }
     }
 
     /**
@@ -65,10 +88,8 @@ class PageController extends Controller
     public function show(Page $page)
     {
         if (!$page) {
-            return redirect()->route('dashboard.page.index')->with('message', 'Page not found.');
+            return redirect()->route('dashboard.page.index')->with('message', 'Page not found');
         }
-        // dd(\App\Models\Image::all());
-        // dd($page->image->original);
         $this->pages = Page::all();
         $this->page = $page;
         $this->template .= 'Pages/Show';
@@ -96,7 +117,7 @@ class PageController extends Controller
     public function update(Request $request, Page $page)
     {
         if (!$page) {
-            return redirect()->route('dashboard.page.index')->with('message', 'Page not found.');
+            return redirect()->route('dashboard.page.index')->with('message', 'Page not found');
         }
         $request->validate([
             'name' => 'string|required',
@@ -104,10 +125,14 @@ class PageController extends Controller
             'title' => 'string|required',
             'subtitle' => 'string|nullable',
             'text' => 'string|required',
+            'status' => 'boolean',
+            'st' => 'string|nullable',
+            'sd' => 'string|nullable',
+            'ogt' => 'string|nullable',
+            'ogd' => 'string|nullable',
         ]);
 
         $data = $request->all();
-        $data['status'] = isset($data['status']) ? 1 : 0;
         $data['seo_id'] = Seo::fire($data['seo'], $page->seo_id);
         
         $page->fill($data);
@@ -115,7 +140,7 @@ class PageController extends Controller
             if ($request->hasFile('image')) {
                 ImageBuilder::fire($request->image, 'page', $page->id, $page->name);
             }
-            return redirect()->route('dashboard.page.show', $page->id)->with('message', 'Страница обновлена.');
+            return redirect()->route('dashboard.page.show', $page->id)->with('message', 'Страница обновлена');
         }
     }
 
@@ -127,6 +152,12 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        //
+        if (!$page) {
+            return redirect()->route('dashboard.page.index')->with('message', 'Page not found');
+        }
+        if ($page->delete()) {
+            return redirect()->route('dashboard.page.index')->with('message', 'Страница удалена');
+        }
+        return redirect()->route('dashboard.page.index')->with('message', 'Упс... Кажется что-то пошло не так');
     }
 }

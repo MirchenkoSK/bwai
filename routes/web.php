@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+require __DIR__.'/dashboard.php';
+require __DIR__.'/auth.php';
+
 Route::name('site.')->group(function () {
 
     Route::get('/', [App\Http\Controllers\Site\IndexController::class, 'index'])->name('index');
+    Route::get('/{alias}', [App\Http\Controllers\Site\IndexController::class, 'page'])->name('page');
 
 });
-
-require __DIR__.'/dashboard.php';
-require __DIR__.'/auth.php';

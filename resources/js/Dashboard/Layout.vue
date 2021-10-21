@@ -5,8 +5,7 @@
         <!-- First Panel -->
         <div class="w-80 min-w-80 flex flex-col p-4 bg-gray-200">
 
-            <Link :href="route('site.index')" class="mb-4 flex justify-center">
-                <!-- <ApplicationLogo class="block h-12 w-auto" /> -->
+            <Link :href="route('dashboard.index')" class="mb-4 flex justify-center">
                 <div class="py-4 text-4xl font-bold tracking-tighter text-gray-700">bwadmin</div>
             </Link>
 
@@ -27,28 +26,26 @@
         </div>
 
         <!-- Two Panel -->
-        <div class="w-120 min-w-120 flex flex-col border-r border-gray-200" v-if="$slots.panel">
+        <div class="w-120 min-w-120 flex flex-col border-r border-gray-200 overflow-auto" v-if="$slots.panel">
             <slot name="panel" />
         </div>
 
         <!-- Content Panel -->
-        <div class="w-auto flex flex-row flex-wrap flex-auto content-start p-4">
-
-            <div v-if="$page.props.flash.message" class="w-full flex flex-row justify-between items-center bg-green-500 mb-4 p-4 rounded-lg">
-                <div class="text-white">{{ $page.props.flash.message }}</div>
-            </div>
-
+        <div class="w-auto flex flex-row flex-wrap flex-auto content-start p-4 overflow-auto">
             <slot />
         </div>
 
     </div>
 
+    <FlashMessage v-if="$page.props.flash.message" :message="$page.props.flash.message" :status="flashStatus" />
+
 </template>
 
 <script>
-import { Link } from '@inertiajs/inertia-vue3';
-import { HomeIcon, UserGroupIcon, AnnotationIcon, CogIcon, PlusIcon, XIcon } from '@heroicons/vue/outline'
+import { Link } from '@inertiajs/inertia-vue3'
+import { HomeIcon, UserGroupIcon, AnnotationIcon, CogIcon, LoginIcon } from '@heroicons/vue/outline'
 import MenuItem from '@/Dashboard/Components/MenuItem.vue'
+import FlashMessage from '@/Dashboard/Components/FlashMessage.vue'
 
 export default {
   components: {
@@ -56,10 +53,10 @@ export default {
       UserGroupIcon,
       AnnotationIcon,
       CogIcon,
-      PlusIcon,
-      XIcon,
+      LoginIcon,
       Link,
       MenuItem,
+      FlashMessage,
     },
     data() {
         return {
@@ -88,8 +85,35 @@ export default {
                     active: false,
                     icon: CogIcon,
                 },
+                {
+                    name: 'Back To Site',
+                    url: route('site.index'),
+                    active: false,
+                    icon: LoginIcon,
+                },
             ],
+            flashStatus: false
         }
     },
+    watch: {
+        '$page.props.flash.message': {
+            handler() {
+                this.flashStatus = true
+                setTimeout(this.showMessage, 5000)
+            },
+            deep: true,
+        }
+    },
+    methods: {
+        showMessage() {
+            this.flashStatus = false
+        }
+    },
+    created() {
+        if (this.$page.props.flash.message) {
+            this.flashStatus = true
+            setTimeout(this.showMessage, 5000)
+        }
+    }
 }
 </script>

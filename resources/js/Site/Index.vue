@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import SiteLayout from '@/Layouts/Site.vue'
+import SiteLayout from '@/Site/Layout.vue'
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
 export default {
@@ -32,10 +32,6 @@ export default {
         Link,
     },
     props: {
-        canLogin: Boolean,
-        canRegister: Boolean,
-        laravelVersion: String,
-        phpVersion: String,
         pages: Array,
     }
 }
