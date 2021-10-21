@@ -15,15 +15,15 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <BreezeNavLink v-if="$page.props.auth.user" :href="route('client.index')" :active="route().current('client.index')">
+                                <BreezeNavLink v-if="user" :href="route('client.index')" :active="route().current('client.index')">
                                     Client
                                 </BreezeNavLink>
 
-                                <BreezeNavLink v-if="$page.props.auth.user" :href="route('manager.index')" :active="route().current('manager.index')">
+                                <BreezeNavLink v-if="user" :href="route('manager.index')" :active="route().current('manager.index')">
                                     Manager
                                 </BreezeNavLink>
 
-                                <BreezeNavLink v-if="$page.props.auth.user" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
+                                <BreezeNavLink v-if="user" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                                     Dashboard
                                 </BreezeNavLink>
 
@@ -33,14 +33,14 @@
                             </div>
                         </div>
 
-                        <div v-if="$page.props.auth.user" class="hidden sm:flex sm:items-center sm:ml-6">
+                        <div v-if="user" class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <BreezeDropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                                {{ $page.props.auth.user.name }}
+                                                {{ user.name }} ({{ user.role.name }})
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -85,7 +85,7 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink v-if="$page.props.auth.user" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
+                        <BreezeResponsiveNavLink v-if="user" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                             Dashboard
                         </BreezeResponsiveNavLink>
 
@@ -95,10 +95,10 @@
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div v-if="$page.props.auth.user" class="pt-4 pb-1 border-t border-gray-200">
+                    <div v-if="user" class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">{{ $page.props.auth.user.name }}</div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
+                            <div class="font-medium text-base text-gray-800">{{ user.name }}</div>
+                            <div class="font-medium text-sm text-gray-500">{{ user.email }}</div>
                         </div>
 
                         <div class="mt-3 space-y-1">
@@ -131,6 +131,12 @@
 
             <!-- Page Content -->
             <main>
+                <div v-if="message" class="bg-red-600 text-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ message }}
+                    </div>
+                </div>
+
                 <slot />
             </main>
         </div>
@@ -162,6 +168,15 @@ export default {
     data() {
         return {
             showingNavigationDropdown: false,
+        }
+    },
+
+    computed: {
+        user() {
+            return this.$page.props.auth.user
+        },
+        message() {
+            return this.$page.props.flash.message
         }
     },
 }

@@ -18,7 +18,7 @@
             <div class="flex flex-row border-t border-gray-300 p-4 -m-4 hover:bg-gray-300 transition cursor-pointer">
                 <img class="h-14 w-14 rounded-full mr-4" src="http://localhost/img/avatar.png" alt="">
                 <div class="flex flex-col">
-                    <div class="text-lg font-medium text-gray-700">Bernhard Wilson</div>
+                    <div class="text-lg font-medium text-gray-700">{{ user.name }}</div>
                     <div class="text-md font-normal text-gray-500">View profile</div>
                 </div>
             </div>
@@ -102,6 +102,11 @@ export default {
                 setTimeout(this.showMessage, 5000)
             },
             deep: true,
+        }
+    },
+    computed: {
+        user() {
+            return this.$page.props.auth.user
         }
     },
     methods: {

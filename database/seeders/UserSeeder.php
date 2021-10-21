@@ -19,31 +19,31 @@ class UserSeeder extends Seeder
         $root = new Role();
         $root->name = 'root';
         $root->display_name = 'Superuser';
-        $root->description = 'Имеет доступ ко всей админке и отладочным страницам';
+        $root->description = 'Hat Zugang zu Ereignissen und Debug-Seiten';
         $root->save();
 
         $admin = new Role();
         $admin->name = 'admin';
         $admin->display_name = 'Admin';
-        $admin->description = 'Имеет доступ ко всей админке';
+        $admin->description = 'Hat Zugang zu allen Verwaltungsseiten';
         $admin->save();
 
         $moderator = new Role();
         $moderator->name = 'moderator';
         $moderator->display_name = 'Moderator';
-        $moderator->description = 'Имеет доступ к некоторым разделам админки';
+        $moderator->description = 'Hat Zugang zu einigen Bereichen des Admin-Bereichs';
         $moderator->save();
 
-        $contractor = new Role();
-        $contractor->name = 'contractor';
-        $contractor->display_name = 'Contractor';
-        $contractor->description = 'Имеет доступ к личному кабинету "Исполнителя"';
-        $contractor->save();
+        $manager = new Role();
+        $manager->name = 'manager';
+        $manager->display_name = 'Manager';
+        $manager->description = 'Hat Zugang zum Managerbereich';
+        $manager->save();
 
         $client = new Role();
         $client->name = 'client';
-        $client->display_name = 'Client';
-        $client->description = 'Имеет доступ к личному кабинету "Заказчика"';
+        $client->display_name = 'Kunde';
+        $client->description = 'Hat Zugang zum Bereich "Kunde"';
         $client->save();
 
         // Users
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
         $user->name = 'Lamia Browne';
         $user->email = 'lamia.browne@wolframium.net';
         $user->password = bcrypt('123456');
-        $user->role_id = $contractor->id;
+        $user->role_id = $manager->id;
         $user->save();
 
         $user = new User();
