@@ -70,13 +70,13 @@ export default {
                 {
                     name: 'Pages',
                     url: route('dashboard.page.index'),
-                    active: route().current('dashboard.page.index'),
+                    active: route().current('dashboard.page.index') || route().current('dashboard.page.show') || route().current('dashboard.page.create'),
                     icon: AnnotationIcon,
                 },
                 {
                     name: 'Users',
-                    url: '#!',
-                    active: false,
+                    url: route('dashboard.user.index'),
+                    active: route().current('dashboard.user.index') || route().current('dashboard.user.show'),
                     icon: UserGroupIcon,
                 },
                 {

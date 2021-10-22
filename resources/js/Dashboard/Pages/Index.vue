@@ -28,7 +28,7 @@
 
 <script>
 import DashboardLayout from '@/Dashboard/Layout.vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3'
 import { HomeIcon, UserGroupIcon, AnnotationIcon, CogIcon,  PlusIcon, XIcon } from '@heroicons/vue/outline'
 
 export default {

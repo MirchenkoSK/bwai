@@ -44,7 +44,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['role'];
+    protected $with = ['role', 'image'];
 
     public function isAdministrator()
     {
@@ -53,5 +53,12 @@ class User extends Authenticatable
 
     public function role() {
         return $this->belongsTo(Role::class);
+    }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'ess_id', 'id')->where('type', 'user')->orderBy('id', 'desc')->withDefault([
+            'xs' => '/img/no-image.png',
+        ]);
     }
 }

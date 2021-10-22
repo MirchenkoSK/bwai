@@ -16,7 +16,7 @@
 
     <template v-if="type == 'checkbox'">
         <div class="flex flex-row w-full mb-4">
-            <input :id="for" type="checkbox" class="" :value="modelValue" :checked="modelValue" @change="$emit('update:modelValue', !modelValue)">
+            <input :id="for" type="checkbox" :value="modelValue" :checked="modelValue" @change="$emit('update:modelValue', !modelValue)">
             <label :for="for" :class="{ 'text-red-600': error, 'text-gray-400': !error }" class="text-sm font-medium ml-2">{{ label }}</label>
         </div>
     </template>

@@ -17,7 +17,9 @@ class RequireRole
     public function handle(Request $request, Closure $next, $role)
     {
         if (auth()->user()->role->name != $role) {
-            return back()->with('message', 'Access denied');
+            if (!($role == 'admin' && auth()->user()->role->name == 'moderator')) {
+                return back()->with('message', 'Access denied');
+            }
         }
         return $next($request);
     }

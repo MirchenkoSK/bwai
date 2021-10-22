@@ -18,5 +18,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->name('dashboard
 
     Route::get('/', [App\Http\Controllers\Dashboard\IndexController::class, 'index'])->name('index');
     Route::resource('/page', App\Http\Controllers\Dashboard\PageController::class);
+    Route::post('/user/{user}/role', [App\Http\Controllers\Dashboard\UserController::class, 'role'])->name('user.role');
+    Route::resource('/user', App\Http\Controllers\Dashboard\UserController::class);
 
 });
