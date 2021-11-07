@@ -1,6 +1,6 @@
 <template>
 
-    <div v-if="status" class="absolute top-4 right-6 bg-green-500 py-4 px-6 opacity-80 rounded-lg">
+    <div v-if="status" class="bg-green py-2 px-6 font-bold rounded-full">
         <div class="text-white">{{ message }}</div>
     </div>
 

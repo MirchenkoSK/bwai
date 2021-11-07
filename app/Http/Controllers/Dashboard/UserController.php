@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
 use App\Models\User;
 
@@ -26,7 +28,7 @@ class UserController extends Controller
     public function index()
     {
         $this->users = User::all();
-        $this->template .= 'Users/Index';
+        $this->template .= 'user/index';
         return $this->fire();
     }
 
@@ -37,10 +39,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        // $this->pages = Page::all();
-        // $this->page = new Page();
-        // $this->template .= 'Pages/Create';
-        // return $this->fire();
+        $this->template .= 'user/create';
+        return $this->fire();
     }
 
     /**
@@ -51,30 +51,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'string|required',
-        //     'alias' => 'string|required',
-        //     'title' => 'string|required',
-        //     'subtitle' => 'string|nullable',
-        //     'text' => 'string|required',
-        //     'status' => 'boolean',
-        //     'st' => 'string|nullable',
-        //     'sd' => 'string|nullable',
-        //     'ogt' => 'string|nullable',
-        //     'ogd' => 'string|nullable',
-        // ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
-        // $data = $request->all();
-        // $data['seo_id'] = Seo::fire($data['seo']);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => 5,
+        ]);
         
-        // $page = new Page();
-        // $page->fill($data);
-        // if ($page->save()) {
-        //     if ($request->hasFile('image')) {
-        //         ImageBuilder::fire($request->image, 'page', $page->id, $page->name);
-        //     }
-        //     return redirect()->route('dashboard.page.show', $page->id)->with('message', 'Страница добавлена');
-        // }
+        return redirect()->route('dashboard.user.show', $user->id)->with('message', 'User created');
     }
 
     /**
@@ -89,9 +79,8 @@ class UserController extends Controller
             return redirect()->route('dashboard.user.index')->with('message', 'User not found');
         }
         $this->roles = Role::where('name', '!=', 'root')->get();
-        $this->users = User::all();
         $this->user = $user;
-        $this->template .= 'Users/Show';
+        $this->template .= 'user/show';
         return $this->fire();
     }
 
@@ -101,9 +90,15 @@ class UserController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit(User $user)
     {
-        //
+        if (!$user) {
+            return redirect()->route('dashboard.user.index')->with('message', 'User not found');
+        }
+        $this->roles = Role::where('name', '!=', 'root')->get();
+        $this->user = $user;
+        $this->template .= 'user/edit';
+        return $this->fire();
     }
 
     /**
@@ -113,34 +108,22 @@ class UserController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page)
+    public function update(Request $request, User $user)
     {
-        // if (!$page) {
-        //     return redirect()->route('dashboard.page.index')->with('message', 'Page not found');
-        // }
-        // $request->validate([
-        //     'name' => 'string|required',
-        //     'alias' => 'string|required',
-        //     'title' => 'string|required',
-        //     'subtitle' => 'string|nullable',
-        //     'text' => 'string|required',
-        //     'status' => 'boolean',
-        //     'st' => 'string|nullable',
-        //     'sd' => 'string|nullable',
-        //     'ogt' => 'string|nullable',
-        //     'ogd' => 'string|nullable',
-        // ]);
+        if (!$user) {
+            return redirect()->route('dashboard.page.index')->with('message', 'User not found');
+        }
 
-        // $data = $request->all();
-        // $data['seo_id'] = Seo::fire($data['seo'], $page->seo_id);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user->fill($request->all());
+        $user->save();
         
-        // $page->fill($data);
-        // if ($page->save()) {
-        //     if ($request->hasFile('image')) {
-        //         ImageBuilder::fire($request->image, 'page', $page->id, $page->name);
-        //     }
-        //     return redirect()->route('dashboard.page.show', $page->id)->with('message', 'Страница обновлена');
-        // }
+        return redirect()->route('dashboard.user.show', $user->id)->with('message', 'User updated');
     }
 
     /**
@@ -155,28 +138,9 @@ class UserController extends Controller
             return redirect()->route('dashboard.page.index')->with('message', 'User not found');
         }
         $data = $request->all();
-        $user->role_id = $data['role']['id'];
+        $user->role_id = $data['role'];
         if ($user->save()) {
             return back()->with('message', 'Роль пользователя обновлена');
-        }
-        return back()->with('message', 'Упс... Кажется что-то пошло не так');
-    }
-
-    /**
-     * Add ballance from user.
-     *
-     * @param  \App\Models\Page  $page
-     * @return \Illuminate\Http\Response
-     */
-    public function ballance(Request $request, User $user)
-    {
-        if (!$user) {
-            return redirect()->route('dashboard.page.index')->with('message', 'User not found');
-        }
-        $data = $request->all();
-        $user->ballance = $user->ballance + ($data['num'] * 100);
-        if ($user->save()) {
-            return back()->with('message', 'Балланс пополнен на '.$data['num']);
         }
         return back()->with('message', 'Упс... Кажется что-то пошло не так');
     }
@@ -187,14 +151,14 @@ class UserController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function destroy(User $user)
     {
-        // if (!$page) {
-        //     return redirect()->route('dashboard.page.index')->with('message', 'Page not found');
-        // }
-        // if ($page->delete()) {
-        //     return redirect()->route('dashboard.page.index')->with('message', 'Страница удалена');
-        // }
-        // return redirect()->route('dashboard.page.index')->with('message', 'Упс... Кажется что-то пошло не так');
+        if (!$user) {
+            return redirect()->route('dashboard.user.index')->with('message', 'User not found');
+        }
+        if ($user->delete()) {
+            return redirect()->route('dashboard.user.index')->with('message', 'Пользователь удален');
+        }
+        return redirect()->route('dashboard.user.index')->with('message', 'Упс... Кажется что-то пошло не так');
     }
 }

@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class Controller extends BaseController
 {
-    protected $template = 'Dashboard/';
+    protected $template = 'bwadmin/';
     private $vars = [];
 
     public function __get($name)
