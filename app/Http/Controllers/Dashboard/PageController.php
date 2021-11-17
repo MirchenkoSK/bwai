@@ -122,16 +122,16 @@ class PageController extends Controller
             return redirect()->route('dashboard.page.index')->with('message', 'Page not found');
         }
         $request->validate([
-            'name' => 'string|required',
-            'alias' => 'string|required',
-            'title' => 'string|required',
-            'subtitle' => 'string|nullable',
+            'name' => 'string|required|max:255',
+            'alias' => 'string|required|max:255',
+            'title' => 'string|required|max:255',
+            'subtitle' => 'string|nullable|max:255',
             'text' => 'string|required',
             'status' => 'boolean',
-            'st' => 'string|nullable',
-            'sd' => 'string|nullable',
-            'ogt' => 'string|nullable',
-            'ogd' => 'string|nullable',
+            'st' => 'string|nullable|max:255',
+            'sd' => 'string|nullable|max:255',
+            'ogt' => 'string|nullable|max:255',
+            'ogd' => 'string|nullable|max:255',
         ]);
 
         $data = $request->all();

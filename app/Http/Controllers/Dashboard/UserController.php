@@ -111,7 +111,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         if (!$user) {
-            return redirect()->route('dashboard.page.index')->with('message', 'User not found');
+            return redirect()->route('dashboard.user.index')->with('message', 'User not found');
         }
 
         $request->validate([
@@ -135,7 +135,7 @@ class UserController extends Controller
     public function role(Request $request, User $user)
     {
         if (!$user) {
-            return redirect()->route('dashboard.page.index')->with('message', 'User not found');
+            return redirect()->route('dashboard.user.index')->with('message', 'User not found');
         }
         $data = $request->all();
         $user->role_id = $data['role'];
