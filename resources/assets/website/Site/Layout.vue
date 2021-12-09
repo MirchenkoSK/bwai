@@ -23,9 +23,9 @@
                                     Manager
                                 </BreezeNavLink>
 
-                                <BreezeNavLink v-if="user" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
+                                <a :href="route('dashboard.index')" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-light-600 hover:text-light-800 hover:border-light-300 focus:text-light-800 focus:border-light-300 dark:text-dark-600 dark:hover:text-dark-800 dark:hover:border-dark-300 dark:focus:text-dark-800 dark:focus:border-dark-300 focus:outline-none transition duration-150 ease-in-out">
                                     Dashboard
-                                </BreezeNavLink>
+                                </a>
 
                                 <BreezeNavLink v-for="page in pages" :key="page.id" :href="route('site.page', page.alias)">
                                     {{ page.name }}

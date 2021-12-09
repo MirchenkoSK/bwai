@@ -7,15 +7,16 @@
         {{ status }}
     </div>
 
-    <form @submit.prevent="submit">
+    <form :action="route('login')" method="post">
+        <input type="hidden" name="_token" :value="csrf_token">
         <div>
             <BreezeLabel for="email" value="Email" />
-            <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
+            <BreezeInput id="email" type="email" name="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
         </div>
 
         <div class="mt-4">
             <BreezeLabel for="password" value="Password" />
-            <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
+            <BreezeInput id="password" type="password" name="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
         </div>
 
         <div class="block mt-4">
@@ -62,6 +63,7 @@ export default {
     props: {
         canResetPassword: Boolean,
         status: String,
+        csrf_token: String
     },
 
     data() {

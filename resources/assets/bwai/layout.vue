@@ -35,7 +35,15 @@
 
                 <div class="flex flex-col flex-auto mb-4 overflow-auto">
                     <sidebar-item v-for="(menuItem, k) in menuItems" :key="k" :href="menuItem.url" :active="menuItem.active" :icon="menuItem.icon">{{ menuItem.name }}</sidebar-item>
+
+                    <a :href="route('site.index')" class="flex flex-row items-center p-3 rounded-lg mb-1 group hover:bg-light dark:hover:bg-dark transition cursor-pointer">
+                        <LoginIcon class="h-8 w-8 mr-3 text-light-500 dark:text-dark-500 group-hover:text-light-700 dark:group-hover:text-dark-700 transition" />
+                        <div class="text-lg font-medium text-light-500 dark:text-dark-500 group-hover:text-light-700 dark:group-hover:text-dark-700 transition">
+                            Back to site
+                        </div>
+                    </a>
                 </div>
+
 
                 <div class="flex flex-row border-t border-b border-light-200 dark:border-dark-200 p-4 -m-4 group hover:bg-light dark:hover:bg-dark transition cursor-pointer">
                     <img class="h-14 w-14 rounded-full mr-4" src="/assets/bwai/img/avatar.png" alt="">
@@ -137,12 +145,6 @@ export default {
                     url: '#!',
                     active: false,
                     icon: CogIcon,
-                },
-                {
-                    name: 'Back To Site',
-                    url: route('site.index'),
-                    active: false,
-                    icon: LoginIcon,
                 },
             ],
             flashStatus: false

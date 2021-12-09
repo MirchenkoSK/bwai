@@ -3,25 +3,26 @@
 
     <BreezeValidationErrors class="mb-4" />
 
-    <form @submit.prevent="submit">
+    <form :action="route('register')" method="post">
+        <input type="hidden" name="_token" :value="csrf_token">
         <div>
             <BreezeLabel for="name" value="Name" />
-            <BreezeInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
+            <BreezeInput id="name" type="text" name="name" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
         </div>
 
         <div class="mt-4">
             <BreezeLabel for="email" value="Email" />
-            <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
+            <BreezeInput id="email" type="email" name="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
         </div>
 
         <div class="mt-4">
             <BreezeLabel for="password" value="Password" />
-            <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
+            <BreezeInput id="password" type="password" name="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
         </div>
 
         <div class="mt-4">
             <BreezeLabel for="password_confirmation" value="Confirm Password" />
-            <BreezeInput id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
+            <BreezeInput id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
@@ -54,6 +55,10 @@ export default {
         BreezeValidationErrors,
         Head,
         Link,
+    },
+
+    props: {
+        csrf_token: String
     },
 
     data() {
