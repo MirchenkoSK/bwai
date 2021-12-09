@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class Controller extends BaseController
 {
-    protected $template = 'bwadmin/';
+    protected $template = '';
     private $vars = [];
 
     public function __get($name)
@@ -25,6 +25,7 @@ class Controller extends BaseController
     protected function fire()
     {
         // dd([$this->template, $this->vars]);
+        Inertia::setRootView('bwai');
         return Inertia::render($this->template, $this->vars);
     }
 }

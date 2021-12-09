@@ -8,7 +8,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $this->template .= 'index';
+        $this->template .= 'dashboard/index';
         return $this->fire();
     }
 }

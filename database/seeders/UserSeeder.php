@@ -19,31 +19,31 @@ class UserSeeder extends Seeder
         $root = new Role();
         $root->name = 'root';
         $root->display_name = 'Superuser';
-        $root->description = 'Hat Zugang zu Ereignissen und Debug-Seiten';
+        $root->description = 'Не имеет доступов, но является крутым! =)';
         $root->save();
 
         $admin = new Role();
         $admin->name = 'admin';
         $admin->display_name = 'Admin';
-        $admin->description = 'Hat Zugang zu allen Verwaltungsseiten';
+        $admin->description = 'Имеет доступ ко всей админке и не только';
         $admin->save();
 
         $moderator = new Role();
         $moderator->name = 'moderator';
         $moderator->display_name = 'Moderator';
-        $moderator->description = 'Hat Zugang zu einigen Bereichen des Admin-Bereichs';
+        $moderator->description = 'Может управлять неким контентом';
         $moderator->save();
 
         $manager = new Role();
         $manager->name = 'manager';
         $manager->display_name = 'Manager';
-        $manager->description = 'Hat Zugang zum Managerbereich';
+        $manager->description = 'Имеет доступ к личному кабинету менеджера';
         $manager->save();
 
         $client = new Role();
         $client->name = 'client';
-        $client->display_name = 'Kunde';
-        $client->description = 'Hat Zugang zum Bereich "Kunde"';
+        $client->display_name = 'Client';
+        $client->description = 'Имеет доступ к личному кабинету клиента';
         $client->save();
 
         // Users
@@ -82,12 +82,5 @@ class UserSeeder extends Seeder
         $user->role_id = $client->id;
         $user->save();
 
-        // PROTECTED USER
-        $user = new User();
-        $user->name = 'MirchenkoSK';
-        $user->email = 'mirchenkosk@gmail.com';
-        $user->password = bcrypt('alvenmark0');
-        $user->role_id = $admin->id;
-        $user->save();
     }
 }
