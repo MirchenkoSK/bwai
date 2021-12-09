@@ -35,6 +35,8 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'csrf_token' => csrf_token(),
+            'locale' => fn () => app()->getLocale(),
+            'language' => fn () => translations(resource_path('lang/'. app()->getLocale() .'.json')),
             'auth' => [
                 'user' => $request->user(),
             ],

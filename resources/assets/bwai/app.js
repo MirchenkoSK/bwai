@@ -24,6 +24,7 @@ createInertiaApp({
             .component('bw-select', select)
             .component('bw-textarea', textarea)
             .mixin({ methods: { route } })
+            .mixin(require('./translation'))
             .mount(el);
     },
 })

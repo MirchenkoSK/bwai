@@ -24,6 +24,11 @@ Route::get('/artisan/migrate', function() {
     return redirect()->route('site.index')->with('message', 'Migrate success!');
 })->name('migrate');
 
+Route::get('language/{language}', function ($language) {
+    Session()->put('locale', $language);
+    return redirect()->back();
+})->name('language');
+
 Route::name('site.')->group(function () {
 
     Route::get('/', [App\Http\Controllers\Site\IndexController::class, 'index'])->name('index');

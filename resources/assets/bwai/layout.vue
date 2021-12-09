@@ -34,12 +34,12 @@
             <div :class="{ hidden: !menu }" class="w-full sm:w-64 sm:min-w-64 md:w-80 md:min-w-80 sm:flex flex-col p-4 border-r border-light-200 dark:border-dark-200 bg-white dark:bg-black">
 
                 <div class="flex flex-col flex-auto mb-4 overflow-auto">
-                    <sidebar-item v-for="(menuItem, k) in menuItems" :key="k" :href="menuItem.url" :active="menuItem.active" :icon="menuItem.icon">{{ menuItem.name }}</sidebar-item>
+                    <sidebar-item v-for="(menuItem, k) in menuItems" :key="k" :href="menuItem.url" :active="menuItem.active" :icon="menuItem.icon">{{ __(menuItem.name) }}</sidebar-item>
 
                     <a :href="route('site.index')" class="flex flex-row items-center p-3 rounded-lg mb-1 group hover:bg-light dark:hover:bg-dark transition cursor-pointer">
                         <LoginIcon class="h-8 w-8 mr-3 text-light-500 dark:text-dark-500 group-hover:text-light-700 dark:group-hover:text-dark-700 transition" />
                         <div class="text-lg font-medium text-light-500 dark:text-dark-500 group-hover:text-light-700 dark:group-hover:text-dark-700 transition">
-                            Back to site
+                            {{ __('bwai.sidebar.back') }}
                         </div>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                     <img class="h-14 w-14 rounded-full mr-4" src="/assets/bwai/img/avatar.png" alt="">
                     <div class="flex flex-col">
                         <div class="text-lg font-medium text-light-700 group-hover:text-light-900 dark:text-dark-700 dark:group-hover:text-dark-900 transition">{{ user.name }}</div>
-                        <div class="text-md font-normal text-light-500 group-hover:text-light-600 dark:text-dark-500 dark:group-hover:text-dark-600 transition">View profile</div>
+                        <div class="text-md font-normal text-light-500 group-hover:text-light-600 dark:text-dark-500 dark:group-hover:text-dark-600 transition">{{ __('bwai.sidebar.profile') }}</div>
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                 <div class="flex flex-col sm:flex-row flex-wrap justify-between border-b border-light-200 dark:border-dark-200 bg-white dark:bg-black text-light-800 dark:text-dark-800">
                     
                     <div class="flex flex-row items-center text-sm font-medium uppercase p-4">
-                        <bw-breadcrumb :url="route('dashboard.index')">Dashboard</bw-breadcrumb>
+                        <bw-breadcrumb :url="route('dashboard.index')">{{ __('bwai.sidebar.dashboard') }}</bw-breadcrumb>
                         <slot name="breadcrumbs" />
                     </div>
                     
@@ -123,25 +123,25 @@ export default {
             loader: false,
             menuItems: [
                 {
-                    name: 'Dashboard',
+                    name: 'bwai.sidebar.dashboard',
                     url: route('dashboard.index'),
                     active: route().current('dashboard.index'),
                     icon: HomeIcon,
                 },
                 {
-                    name: 'Pages',
+                    name: 'bwai.sidebar.pages',
                     url: route('dashboard.page.index'),
                     active: route().current('dashboard.page.*'),
                     icon: AnnotationIcon,
                 },
                 {
-                    name: 'Users',
+                    name: 'bwai.sidebar.users',
                     url: route('dashboard.user.index'),
                     active: route().current('dashboard.user.*'),
                     icon: UserGroupIcon,
                 },
                 {
-                    name: 'Settings',
+                    name: 'bwai.sidebar.settings',
                     url: '#!',
                     active: false,
                     icon: CogIcon,

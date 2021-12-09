@@ -1,0 +1,17 @@
+{
+    "bwai.sidebar.dashboard": "Dashboard",
+    "bwai.sidebar.pages": "Pages",
+    "bwai.sidebar.users": "Users",
+    "bwai.sidebar.settings": "Settings",
+    "bwai.sidebar.back": "Back to site",
+    "bwai.sidebar.profile": "View profile",
+    
+    "bwai.dashboard": "Dashboard",
+    "bwai.dashboard.title": "Some statistics",
+    "bwai.dashboard.orders": "Orders",
+    "bwai.dashboard.clients": "Clients",
+    "bwai.dashboard.mailings": "Mailings",
+    "bwai.dashboard.email": "Email",
+    "bwai.dashboard.balance": "Balance",
+    "bwai.dashboard.accounts": "Accounts"
+}

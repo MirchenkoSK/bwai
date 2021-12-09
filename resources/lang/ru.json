@@ -1,0 +1,17 @@
+{
+    "bwai.sidebar.dashboard": "Dashboard",
+    "bwai.sidebar.pages": "Страницы",
+    "bwai.sidebar.users": "Пользователи",
+    "bwai.sidebar.settings": "Настройки",
+    "bwai.sidebar.back": "Вернуться на сайт",
+    "bwai.sidebar.profile": "Открыть профиль",
+    
+    "bwai.dashboard": "Dashboard",
+    "bwai.dashboard.title": "Немного статистики",
+    "bwai.dashboard.orders": "Заказы",
+    "bwai.dashboard.clients": "Клиенты",
+    "bwai.dashboard.mailings": "Рассылки",
+    "bwai.dashboard.email": "Почта",
+    "bwai.dashboard.balance": "Баланс",
+    "bwai.dashboard.accounts": "Аккаунты"
+}
