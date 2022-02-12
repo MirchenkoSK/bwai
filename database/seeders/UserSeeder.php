@@ -18,67 +18,67 @@ class UserSeeder extends Seeder
         // Roles
         $root = new Role();
         $root->name = 'root';
-        $root->display_name = 'Superuser';
-        $root->description = 'Не имеет доступов, но является крутым! =)';
+        $root->display_name = 'role.root.name';
+        $root->description = 'role.root.description';
         $root->save();
 
         $admin = new Role();
         $admin->name = 'admin';
-        $admin->display_name = 'Admin';
-        $admin->description = 'Имеет доступ ко всей админке и не только';
+        $admin->display_name = 'role.admin.name';
+        $admin->description = 'role.admin.description';
         $admin->save();
 
         $moderator = new Role();
         $moderator->name = 'moderator';
-        $moderator->display_name = 'Moderator';
-        $moderator->description = 'Может управлять неким контентом';
+        $moderator->display_name = 'role.moderator.name';
+        $moderator->description = 'role.moderator.description';
         $moderator->save();
 
         $manager = new Role();
         $manager->name = 'manager';
-        $manager->display_name = 'Manager';
-        $manager->description = 'Имеет доступ к личному кабинету менеджера';
+        $manager->display_name = 'role.manager.name';
+        $manager->description = 'role.manager.description';
         $manager->save();
 
         $client = new Role();
         $client->name = 'client';
-        $client->display_name = 'Client';
-        $client->description = 'Имеет доступ к личному кабинету клиента';
+        $client->display_name = 'role.client.name';
+        $client->description = 'role.client.description';
         $client->save();
 
         // Users
         $user = new User();
         $user->name = 'The Shrike';
-        $user->email = 'the.shrike@wolframium.net';
-        $user->password = bcrypt('123456');
+        $user->email = 'the.shrike@site.com';
+        $user->password = bcrypt('1q2w3e4r');
         $user->role_id = $root->id;
         $user->save();
 
         $user = new User();
         $user->name = 'Meina Gladstone';
-        $user->email = 'meina.gladstone@wolframium.net';
-        $user->password = bcrypt('123456');
+        $user->email = 'meina.gladstone@site.com';
+        $user->password = bcrypt('1q2w3e4r');
         $user->role_id = $admin->id;
         $user->save();
 
         $user = new User();
         $user->name = 'Het Masteen';
-        $user->email = 'het.masteen@wolframium.net';
-        $user->password = bcrypt('123456');
+        $user->email = 'het.masteen@site.com';
+        $user->password = bcrypt('1q2w3e4r');
         $user->role_id = $moderator->id;
         $user->save();
 
         $user = new User();
         $user->name = 'Lamia Browne';
-        $user->email = 'lamia.browne@wolframium.net';
-        $user->password = bcrypt('123456');
+        $user->email = 'lamia.browne@site.com';
+        $user->password = bcrypt('1q2w3e4r');
         $user->role_id = $manager->id;
         $user->save();
 
         $user = new User();
         $user->name = 'Lenar Hoyt';
-        $user->email = 'lenar.hoyt@wolframium.net';
-        $user->password = bcrypt('123456');
+        $user->email = 'lenar.hoyt@site.com';
+        $user->password = bcrypt('1q2w3e4r');
         $user->role_id = $client->id;
         $user->save();
 
